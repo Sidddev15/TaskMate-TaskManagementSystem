@@ -1,10 +1,14 @@
 import "dotenv/config";
 import http from 'http';
 import app from './app.js';
-
-const PORT = process.env.PORT || 8000;
+import { connectDB } from "./config/db.js";
+import { env } from "./config/env.js";
 
 const server = http.createServer(app);
-server.listen(PORT, () => {
-    console.log(`API up on http://localhost:${PORT}`);
-});
+
+(async () => {
+    await connectDB();
+    server.listen(env.PORT, () => {
+        console.log(`API up on http:/localhost:${env.PORT}`);
+    });
+})();
